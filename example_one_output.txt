@@ -1,0 +1,217 @@
+before calculation
+Graph(AnimalsCSV, CoolnessConfig, *CatsColumn, *DogsColumn, *MamalsColumn, *CoolnessColumn, *CoolnessPerCatColumn, *DogMedian, *EnoughDogs)
+AnimalsCSV
+   cats  dogs  iguanas
+0     1     2        2
+1     0     0       10
+2     3     1        0
+3     1     0        0
+4     0    10        0
+
+CoolnessConfig
+{'cats': 1, 'dogs': 1, 'iguanas': 5}
+
+CatsColumn
+None
+
+DogsColumn
+None
+
+MamalsColumn
+None
+
+CoolnessColumn
+None
+
+CoolnessPerCatColumn
+None
+
+DogMedian
+None
+
+EnoughDogs
+None
+
+
+
+
+Calculate Mamals
+Calculating CatsColumn
+Calculating DogsColumn
+Calculating MamalsColumn
+Graph(AnimalsCSV, CoolnessConfig, CatsColumn, DogsColumn, MamalsColumn, *CoolnessColumn, *CoolnessPerCatColumn, *DogMedian, *EnoughDogs)
+AnimalsCSV
+   cats  dogs  iguanas
+0     1     2        2
+1     0     0       10
+2     3     1        0
+3     1     0        0
+4     0    10        0
+
+CoolnessConfig
+{'cats': 1, 'dogs': 1, 'iguanas': 5}
+
+CatsColumn
+0    1
+1    0
+2    3
+3    1
+4    0
+Name: cats, dtype: int64
+
+DogsColumn
+0     2
+1     0
+2     1
+3     0
+4    10
+Name: dogs, dtype: int64
+
+MamalsColumn
+0     3
+1     0
+2     4
+3     1
+4    10
+dtype: int64
+
+CoolnessColumn
+None
+
+CoolnessPerCatColumn
+None
+
+DogMedian
+None
+
+EnoughDogs
+None
+
+
+
+
+Calculate coolness
+Calculating CoolnessColumn
+Calculating CoolnessPerCatColumn
+Graph(AnimalsCSV, CoolnessConfig, CatsColumn, DogsColumn, MamalsColumn, CoolnessColumn, CoolnessPerCatColumn, *DogMedian, *EnoughDogs)
+AnimalsCSV
+   cats  dogs  iguanas
+0     1     2        2
+1     0     0       10
+2     3     1        0
+3     1     0        0
+4     0    10        0
+
+CoolnessConfig
+{'cats': 1, 'dogs': 1, 'iguanas': 5}
+
+CatsColumn
+0    1
+1    0
+2    3
+3    1
+4    0
+Name: cats, dtype: int64
+
+DogsColumn
+0     2
+1     0
+2     1
+3     0
+4    10
+Name: dogs, dtype: int64
+
+MamalsColumn
+0     3
+1     0
+2     4
+3     1
+4    10
+dtype: int64
+
+CoolnessColumn
+0    13
+1    50
+2     4
+3     1
+4    10
+dtype: int64
+
+CoolnessPerCatColumn
+0    13.000000
+1          inf
+2     1.333333
+3     1.000000
+4          inf
+dtype: float64
+
+DogMedian
+None
+
+EnoughDogs
+None
+
+
+
+
+Calculate enough dogs
+Calculating DogMedian
+Calculating EnoughDogs
+Graph(AnimalsCSV, CoolnessConfig, CatsColumn, DogsColumn, MamalsColumn, CoolnessColumn, CoolnessPerCatColumn, DogMedian, EnoughDogs)
+AnimalsCSV
+   cats  dogs  iguanas
+0     1     2        2
+1     0     0       10
+2     3     1        0
+3     1     0        0
+4     0    10        0
+
+CoolnessConfig
+{'cats': 1, 'dogs': 1, 'iguanas': 5}
+
+CatsColumn
+0    1
+1    0
+2    3
+3    1
+4    0
+Name: cats, dtype: int64
+
+DogsColumn
+0     2
+1     0
+2     1
+3     0
+4    10
+Name: dogs, dtype: int64
+
+MamalsColumn
+0     3
+1     0
+2     4
+3     1
+4    10
+dtype: int64
+
+CoolnessColumn
+0    13
+1    50
+2     4
+3     1
+4    10
+dtype: int64
+
+CoolnessPerCatColumn
+0    13.000000
+1          inf
+2     1.333333
+3     1.000000
+4          inf
+dtype: float64
+
+DogMedian
+1.0
+
+EnoughDogs
+False
+

@@ -101,3 +101,35 @@ class CoolnessPerCatColumn(Node):
     def calculate(self, coolness: pd.Series, cats: pd.Series):
         self._value = coolness / cats
         self._calculated = True
+
+
+class DogStat(Node):
+    def dependencies(self) -> tuple[ABCMeta]:
+        return (DogsColumn,)
+
+
+class DogAverage(DogStat):
+    _name = "DogAverage"
+
+    def calculate(self, dogs: pd.Series):
+        self._value = dogs.mean()
+        self._calculated = True
+
+
+class DogMedian(DogStat):
+    _name = "DogMedian"
+
+    def calculate(self, dogs: pd.Series):
+        self._value = dogs.median()
+        self._calculated = True
+
+
+class EnoughDogs(Node):
+    _name = "EnoughDogs"
+
+    def dependencies(self) -> tuple[ABCMeta]:
+        return (DogStat,)
+
+    def calculate(self, dog_stat: float):
+        self._value = dog_stat > 2.0
+        self._calculated = True
