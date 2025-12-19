@@ -36,7 +36,13 @@ class Graph:
         self.nodes = []
 
     def __repr__(self) -> str:
-        return f"Graph({', '.join(str(node) for node in self.nodes)})"
+        strings = []
+        for node in self.nodes:
+            if node.is_calculated:
+                strings.append(str(node))
+            else:
+                strings.append("*" + str(node))
+        return f"Graph({', '.join(strings)})"
 
     def contains_class(self, cls: ABCMeta) -> bool:
         return any(isinstance(node, cls) for node in self.nodes)
@@ -57,16 +63,17 @@ class Graph:
                 return node
         raise ValueError
 
-    def calculate_node(self, cls: ABCMeta):
+    def calculate_node(self, cls: ABCMeta, verbose=False):
         node = self[cls]
         if node.is_calculated:
             return
         for dep in node.dependencies():
             self.calculate_node(dep)
         args = tuple(self[dep].value for dep in node.dependencies())
+        print(f"Calculating {node.name}")
         node.calculate(*args)
 
-    def calculate_all(self):
+    def calculate_all(self, verbose=False):
         for node in self.nodes:
-            self.calculate_node(type(node))
+            self.calculate_node(type(node), verbose=verbose)
 

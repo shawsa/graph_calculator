@@ -21,7 +21,6 @@ class AnimalsCSV(Node):
 
     @staticmethod
     def from_file(file_name: str) -> Self:
-        print("Loading animals csv")
         return AnimalsCSV(pd.read_csv(file_name))
 
 
@@ -40,7 +39,6 @@ class CoolnessConfig(Node):
 
     @staticmethod
     def from_file(file_name: str) -> Self:
-        print("Loading coolness yaml")
         with open(file_name, "r") as f:
             my_dict = yaml.safe_load(f)
         return CoolnessConfig(my_dict)
@@ -52,10 +50,8 @@ class CatsColumn(Node):
     def dependencies(self) -> tuple[ABCMeta]:
         return (AnimalsCSV,)
 
-    def calculate(self, *args):
-        print(f"Calculating {self.name}")
-        (df,) = args
-        self._value = df["cats"]
+    def calculate(self, animals: pd.DataFrame):
+        self._value = animals["cats"]
         self._calculated = True
 
 
@@ -65,10 +61,8 @@ class DogsColumn(Node):
     def dependencies(self) -> tuple[ABCMeta]:
         return (AnimalsCSV,)
 
-    def calculate(self, *args):
-        print(f"Calculating {self.name}")
-        (df,) = args
-        self._value = df["dogs"]
+    def calculate(self, animals: pd.DataFrame):
+        self._value = animals["dogs"]
         self._calculated = True
 
 
@@ -78,9 +72,7 @@ class MamalsColumn(Node):
     def dependencies(self) -> tuple[ABCMeta]:
         return CatsColumn, DogsColumn
 
-    def calculate(self, *args):
-        print(f"Calculating {self.name}")
-        cats, dogs = args
+    def calculate(self, cats: pd.Series, dogs: pd.Series):
         self._value = cats + dogs
         self._calculated = True
 
@@ -91,12 +83,21 @@ class CoolnessColumn(Node):
     def dependencies(self) -> tuple[ABCMeta]:
         return AnimalsCSV, CoolnessConfig
 
-    def calculate(self, *args):
-        print(f"Calculating {self.name}")
-        animals, conf = args
+    def calculate(self, animals: pd.DataFrame, conf: dict[str, int]):
         self._value = (
             animals["cats"] * conf["cats"]
             + animals["dogs"] * conf["dogs"]
             + animals["iguanas"] * conf["iguanas"]
         )
+        self._calculated = True
+
+
+class CoolnessPerCatColumn(Node):
+    _name = "CoolnessPerCatColumn"
+
+    def dependencies(self) -> tuple[ABCMeta]:
+        return CoolnessColumn, CatsColumn
+
+    def calculate(self, coolness: pd.Series, cats: pd.Series):
+        self._value = coolness / cats
         self._calculated = True
